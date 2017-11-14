@@ -25,16 +25,32 @@ public class Game {
     }
     
     //TO DO: USERS INPUT (Only int 0-size of table,String conversion)//
-    private int[] input(Scanner input){
+    private int[] input(Scanner scan){
         int[] coordinates = new int[2];
+        int x,y;
+        String input;
         boolean xbool=false,ybool = false;
         while(xbool==false){
-            System.out.print("Input x coordinate");
-            String x = input.nextLine();
+            System.out.println("Input x coordinate");
+            input = scan.nextLine();
+            try{
+                x=Integer.parseInt(input);
+                coordinates[0]=x;
+                xbool=true;
+            }catch(NumberFormatException ex){
+                System.out.println("Prosze podac liczbe.");
+            }
         }
         while(ybool==false){
-            System.out.print("Input y coordinate");
-            String y = input.nextLine();
+            System.out.println("Input x coordinate");
+            input = scan.nextLine();
+            try{
+                x=Integer.parseInt(input);
+                coordinates[0]=x;
+                ybool=true;
+            }catch(NumberFormatException ex){
+                System.out.println("Prosze podac liczbe.");
+            }
         }
         return coordinates;
     }
@@ -42,5 +58,6 @@ public class Game {
     public void start(){
         Tile[][] map = createmap();
         Scanner input = new Scanner(System.in);
+        System.out.println(Integer.parseInt(input.nextLine()));
     }
 }
