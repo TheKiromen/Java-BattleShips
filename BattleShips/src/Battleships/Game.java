@@ -38,18 +38,18 @@ public class Game {
                 coordinates[0]=x;
                 xbool=true;
             }catch(NumberFormatException ex){
-                System.out.println("Prosze podac liczbe.");
+                System.out.println("Please enter an intiger.");
             }
         }
         while(ybool==false){
             System.out.println("Input x coordinate");
             input = scan.nextLine();
             try{
-                x=Integer.parseInt(input);
-                coordinates[0]=x;
+                y=Integer.parseInt(input);
+                coordinates[1]=y;
                 ybool=true;
             }catch(NumberFormatException ex){
-                System.out.println("Prosze podac liczbe.");
+                System.out.println("Please enter an intiger.");
             }
         }
         return coordinates;
