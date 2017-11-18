@@ -46,9 +46,8 @@ public class Game {
         boolean xbool=false,ybool = false;
         while(xbool==false){
             System.out.println("Input x coordinate");
-            input = scan.nextLine();
             try{
-                x=Integer.parseInt(input);
+                x = scan.nextInt();
                 if(x>=0&&x<map[0].length){
                   coordinates[0]=x;
                   xbool=true;  
@@ -60,10 +59,9 @@ public class Game {
             }
         }
         while(ybool==false){
-            System.out.println("Input x coordinate");
-            input = scan.nextLine();
+            System.out.println("Input y coordinate");
             try{
-                y=Integer.parseInt(input);
+                y = scan.nextInt();
                 if(y>=0&&y<map.length){
                     coordinates[1]=y;
                     ybool=true;
