@@ -1,5 +1,6 @@
 package Battleships;
 
+import java.util.Random;
 import java.util.Scanner;
 
 public class Game {
@@ -22,12 +23,13 @@ public class Game {
     //DRAWING MAP IN CONSOLE
     private void drawmap(Tile[][] map){
         int y=0;
+        System.out.print("  ");
         for(int x=0;x<map[0].length;x++){
             System.out.print(x+" ");
         }
         System.out.println();
         for(int i=0;i<map.length;i++){
-            System.out.print(y);
+            System.out.print(y+" ");
             for(int j=0;j<map.length;j++){
                 System.out.print(map[i][j].icon+" ");
             }
@@ -77,23 +79,46 @@ public class Game {
     
     
     //PLACES SHIP ON A MAP ----------------------------------------------TO DO
-    public boolean placeship(Tile[][] map, Ship ship){
-        int axis = (int)Math.round(Math.random());
-        //AXIS 1 = | //ASIX 0 = --
-        if(axis==1){
-            int x=(int)Math.floor(Math.random()*map[0].length);
-            int y=(int)Math.floor(Math.random()*map.length)-ship.sizeofship;
             //TO DO:------------------------------------------------------------
-            //-Check if next tiles arent "SHIP"
+            //-FIX CHECKING SHIP AND RANDOM!!!!!!!!!!!!!!!!!!!!!
             //-Set "SHIP's" coordinates according to drawn numbers
             //-return false if there are no possible spaces to place ship
             //------------------------------------------------------------------
+    private boolean placeship(Tile[][] map, Ship ship){
+        int axis = (int)Math.round(Math.random());
+        Random rnd = new Random();
+        boolean stop = false;
+        do{
+        //AXIS 1 = | //ASIX 0 = --
+        if(axis==1){
+            /*
+            int x=rnd.nextInt(map[0].length-2)+1;
+            int y=rnd.nextInt(map.length-2)+1-ship.sizeofship;
+            for(int i=-1;i<=ship.sizeofship;i++){
+                for(int j=-1;j<2;j++){
+                    if(map[y+i][x+j] instanceof Ship){
+                        break;
+                    }
+                }
+            }
+        stop=true;
         }else{
-            int y=(int)Math.floor(Math.random()*map[0].length);
-            int x=(int)Math.floor(Math.random()*map.length)-ship.sizeofship;
+            int x=rnd.nextInt(map[0].length-2)+1-ship.sizeofship;
+            int y=rnd.nextInt(map.length-2)+1;
+            for(int i=-1;i<=ship.sizeofship;i++){
+                for(int j=-1;j<2;j++){
+                    if(map[y+j][x+i] instanceof Ship){
+                        break;
+                    }
+                }
+            }
+        stop=true;
         }
+        */
+        }while(stop!=true);
         return true;
     }
+    
     
     //STARTS THE GAME
     public void start(){
@@ -101,5 +126,6 @@ public class Game {
         Tile[][] map = createmap();
         Scanner input = new Scanner(System.in);
         SmallShip smallship1=new SmallShip();
+        System.out.println(placeship(map,smallship1));
     }
 }
