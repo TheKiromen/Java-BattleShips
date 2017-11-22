@@ -78,12 +78,7 @@ public class Game {
     }
     
     
-    //PLACES SHIP ON A MAP ----------------------------------------------TO DO
-            //TO DO:------------------------------------------------------------
-            //-FIX CHECKING FOR SHIPS AROUND
-            //-Set "SHIP's" coordinates according to drawn numbers
-            //-return false if there are no possible spaces to place ship
-            //------------------------------------------------------------------
+    //PLACES SHIP ON A MAP
     private boolean placeship(Tile[][] map, Ship ship){
         int axis = (int)Math.round(Math.random());
         Random rnd = new Random();
@@ -140,5 +135,13 @@ public class Game {
         while(check==false){
             check=placeship(map,smallship1);
         }
+        
+        //TO-DO
+        //-Check hits
+        //-Display if no more ships can be placed
+        //-Make a move's limit for game to last
+        //-Difficulty levels?
+        //-All the tiles around destroyed when Ship is sinking
+        //-Make other ships
     }
 }
