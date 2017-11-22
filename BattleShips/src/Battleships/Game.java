@@ -80,42 +80,45 @@ public class Game {
     
     //PLACES SHIP ON A MAP ----------------------------------------------TO DO
             //TO DO:------------------------------------------------------------
-            //-FIX CHECKING SHIP AND RANDOM!!!!!!!!!!!!!!!!!!!!!
+            //-FIX CHECKING FOR SHIPS AROUND
             //-Set "SHIP's" coordinates according to drawn numbers
             //-return false if there are no possible spaces to place ship
             //------------------------------------------------------------------
     private boolean placeship(Tile[][] map, Ship ship){
-        int axis = (int)Math.round(Math.random());
+        int axis = 1;//(int)Math.round(Math.random());
         Random rnd = new Random();
         boolean stop = false;
-        do{
+        int x = 0,y = 0;
+        while(stop==false){
         //AXIS 1 = | //ASIX 0 = --
-        if(axis==1){
-            /*
-            int x=rnd.nextInt(map[0].length-2)+1;
-            int y=rnd.nextInt(map.length-2)+1-ship.sizeofship;
-            for(int i=-1;i<=ship.sizeofship;i++){
-                for(int j=-1;j<2;j++){
-                    if(map[y+i][x+j] instanceof Ship){
-                        break;
+        //Checking if there are no other ships around
+            if(axis==1){
+                x=rnd.nextInt(map[0].length-2)+1;
+                y=rnd.nextInt(map.length-(ship.sizeofship+1))+1;
+                for(int i=-1;i<=ship.sizeofship;i++){//FIX IT
+                    for(int j=-1;j<2;j++){
+                        if(map[y+i][x+j] instanceof Ship==true){
+                            i=ship.sizeofship+1;
+                            break;
+                        }
                     }
                 }
+            stop=true;
+            }else{
+                x=rnd.nextInt(map[0].length-(ship.sizeofship+1))+1;
+                y=rnd.nextInt(map.length-2)+1;
+                //CHECK IN 0 AXIS -----------------------------------------TO DO
+            stop=true;
             }
-        stop=true;
-        }else{
-            int x=rnd.nextInt(map[0].length-2)+1-ship.sizeofship;
-            int y=rnd.nextInt(map.length-2)+1;
-            for(int i=-1;i<=ship.sizeofship;i++){
-                for(int j=-1;j<2;j++){
-                    if(map[y+j][x+i] instanceof Ship){
-                        break;
-                    }
-                }
-            }
-        stop=true;
         }
-        */
-        }while(stop!=true);
+        for(int i=0;i<ship.sizeofship;i++){
+            if(axis==1){
+                map[y+i][x] = ship;
+            }else{
+                map[y][x+i] = ship;
+            }
+        }
+        this.drawmap(map);
         return true;
     }
     
@@ -126,6 +129,7 @@ public class Game {
         Tile[][] map = createmap();
         Scanner input = new Scanner(System.in);
         SmallShip smallship1=new SmallShip();
-        System.out.println(placeship(map,smallship1));
+        placeship(map,smallship1);
+        //Max 4 small ships on 10x10 field FMI
     }
 }
