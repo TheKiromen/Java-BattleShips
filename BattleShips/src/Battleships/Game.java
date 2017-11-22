@@ -27,7 +27,7 @@ public class Game {
         for(int x=0;x<map[0].length;x++){
             System.out.print(x+" ");
         }
-        System.out.println();
+        System.out.println("X");
         for(int i=0;i<map.length;i++){
             System.out.print(y+" ");
             for(int j=0;j<map.length;j++){
@@ -36,6 +36,11 @@ public class Game {
             System.out.println();
             y++;
         }
+        System.out.println("Y");
+        for(int i=0;i<map[0].length*2+3;i++){
+            System.out.print("-"); 
+        }
+        System.out.println();
     }
     
     
