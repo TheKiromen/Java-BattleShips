@@ -91,13 +91,13 @@ public class Game {
         int x = 0,y = 0;
         while(stop==false){
         //AXIS 1 = | //ASIX 0 = --
-        //Checking if there are no other ships around
+        //Checking if there are no other ships around//-------------------FIX IT
             if(axis==1){
                 x=rnd.nextInt(map[0].length-2)+1;
                 y=rnd.nextInt(map.length-(ship.sizeofship+1))+1;
-                for(int i=-1;i<=ship.sizeofship;i++){//FIX IT
+                for(int i=-1;i<=ship.sizeofship;i++){
                     for(int j=-1;j<2;j++){
-                        if(map[y+i][x+j] instanceof Ship==true){
+                        if(map[y+i][x+j] instanceof Ship){
                             i=ship.sizeofship+1;
                             break;
                         }
@@ -113,9 +113,9 @@ public class Game {
         }
         for(int i=0;i<ship.sizeofship;i++){
             if(axis==1){
-                map[y+i][x] = ship;
+                map[y+i][x]=ship;
             }else{
-                map[y][x+i] = ship;
+                map[y][x+i]=ship;
             }
         }
         this.drawmap(map);
@@ -129,7 +129,11 @@ public class Game {
         Tile[][] map = createmap();
         Scanner input = new Scanner(System.in);
         SmallShip smallship1=new SmallShip();
+        SmallShip s1=new SmallShip();
+        SmallShip s2=new SmallShip();
         placeship(map,smallship1);
+        placeship(map,s1);
+        placeship(map,s2);
         //Max 4 small ships on 10x10 field FMI
     }
 }
