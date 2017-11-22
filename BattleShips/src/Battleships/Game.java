@@ -85,21 +85,20 @@ public class Game {
             //-return false if there are no possible spaces to place ship
             //------------------------------------------------------------------
     private boolean placeship(Tile[][] map, Ship ship){
-        int axis = 1;//(int)Math.round(Math.random());
+        int axis = (int)Math.round(Math.random());
         Random rnd = new Random();
         boolean stop = false;
         int x = 0,y = 0;
         while(stop==false){
         //AXIS 1 = | //ASIX 0 = --
-        //Checking if there are no other ships around//-------------------FIX IT
+        //Checking if there are no other ships around
             if(axis==1){
                 x=rnd.nextInt(map[0].length-2)+1;
                 y=rnd.nextInt(map.length-(ship.sizeofship+1))+1;
                 for(int i=-1;i<=ship.sizeofship;i++){
                     for(int j=-1;j<2;j++){
                         if(map[y+i][x+j] instanceof Ship){
-                            i=ship.sizeofship+1;
-                            break;
+                            return false;
                         }
                     }
                 }
@@ -107,15 +106,23 @@ public class Game {
             }else{
                 x=rnd.nextInt(map[0].length-(ship.sizeofship+1))+1;
                 y=rnd.nextInt(map.length-2)+1;
-                //CHECK IN 0 AXIS -----------------------------------------TO DO
+                for(int i=-1;i<=ship.sizeofship;i++){
+                    for(int j=-1;j<2;j++){
+                        if(map[y+j][x+i] instanceof Ship){
+                            return false;
+                        }
+                    }
+                }
             stop=true;
             }
         }
         for(int i=0;i<ship.sizeofship;i++){
             if(axis==1){
                 map[y+i][x]=ship;
+                ship.coordinates[i]=new ShipCoordinates(x,y+i);
             }else{
                 map[y][x+i]=ship;
+                ship.coordinates[i]=new ShipCoordinates(x+i,y);
             }
         }
         this.drawmap(map);
@@ -129,11 +136,9 @@ public class Game {
         Tile[][] map = createmap();
         Scanner input = new Scanner(System.in);
         SmallShip smallship1=new SmallShip();
-        SmallShip s1=new SmallShip();
-        SmallShip s2=new SmallShip();
-        placeship(map,smallship1);
-        placeship(map,s1);
-        placeship(map,s2);
-        //Max 4 small ships on 10x10 field FMI
+        boolean check=false;
+        while(check==false){
+            check=placeship(map,smallship1);
+        }
     }
 }

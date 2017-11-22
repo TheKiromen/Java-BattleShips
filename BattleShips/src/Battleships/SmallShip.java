@@ -1,7 +1,6 @@
 package Battleships;
 
 public class SmallShip extends Ship{
-    ShipCoordinates[] coordinates;
     
     public SmallShip(){
         sizeofship=2;

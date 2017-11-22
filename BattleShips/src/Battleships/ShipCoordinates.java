@@ -1,7 +1,7 @@
 package Battleships;
 
 public class ShipCoordinates {
-    private int x,y;
+    public int x,y;
     public boolean hit;
     
     public ShipCoordinates(int x, int y){
