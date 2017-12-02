@@ -135,11 +135,29 @@ public class Game {
         //MAP[y][x] AS TABLE (REVERSED COORDINATES)
         Tile[][] map = createmap();
         Scanner input = new Scanner(System.in);
-        SmallShip smallship1=new SmallShip();
+        SmallShip small=new SmallShip();
+        MediumShip medium=new MediumShip();
+        LargeShip large=new LargeShip();
         boolean check=false;
         while(check==false){
-            check=placeship(map,smallship1);
+            if(placeship(map,small)==true){
+                check=true;
+            }
         }
+        check=false;
+        while(check==false){
+            if(placeship(map,medium)==true){
+                check=true;
+            }
+        }
+        check=false;
+        while(check==false){
+            if(placeship(map,large)==true){
+                check=true;
+            }
+        }
+        
+        
         
         //TO-DO
         //-Check hits

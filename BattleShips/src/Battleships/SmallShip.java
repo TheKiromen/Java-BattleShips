@@ -8,5 +8,5 @@ public class SmallShip extends Ship{
         icon='>';//REMOVE LATER
     }
     
-    //Overwrite hit(x,y) function!!!!!!!!!!!
+    
 }
