@@ -8,9 +8,11 @@ public class Tile {
         if(hit==false){
             icon='~';
             hit=true;
-            return 1;
-        }else{
+            System.out.println("Miss!");
             return 0;
+        }else{
+            System.out.println("You already hit this tile.");
+            return -1;
         }
     }
     

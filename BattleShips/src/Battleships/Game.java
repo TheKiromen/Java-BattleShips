@@ -135,6 +135,8 @@ public class Game {
         //MAP[y][x] AS TABLE (REVERSED COORDINATES)
         Tile[][] map = createmap();
         Scanner input = new Scanner(System.in);
+        
+        //SETTING UP SHIPS
         SmallShip small=new SmallShip();
         MediumShip medium=new MediumShip();
         LargeShip large=new LargeShip();
@@ -157,14 +159,23 @@ public class Game {
             }
         }
         
-        
+        //PLAYER's TURN
+        check=false;
+        int moves = 100;
+        int[] coordinates;
+        while(check==false){
+            coordinates=input(input,map);
+            map[coordinates[1]][coordinates[0]].hit(coordinates[1],coordinates[0]);
+            drawmap(map);
+            moves--;
+            if(moves==0){
+                check=true;
+                System.out.println("Game Over");
+            }
+        }
         
         //TO-DO
-        //-Check hits
-        //-Display if no more ships can be placed
-        //-Make a move's limit for game to last
-        //-Difficulty levels?
+        //-Check hits -ALMOST WORKING
         //-All the tiles around destroyed when Ship is sinking
-        //-Make other ships
     }
 }
