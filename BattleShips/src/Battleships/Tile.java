@@ -2,17 +2,23 @@ package Battleships;
 
 public class Tile {
     private boolean hit = false;
-    char icon = 'O';
+    int sizeofship;
+    public ShipCoordinates[] coordinates;
     
     public int hit(int x,int y){
         if(hit==false){
-            icon='~';
             hit=true;
-            System.out.println("Miss!");
-            return 0;
+            return 2;
         }else{
-            System.out.println("You already hit this tile.");
             return -1;
+        }
+    }
+    
+    public void draw(int x,int y){
+        if(hit==false){
+            System.out.print("O ");
+        }else{
+            System.out.print("~ ");
         }
     }
     

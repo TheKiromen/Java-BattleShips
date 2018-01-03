@@ -7,14 +7,13 @@ public class Game {
     
     
     //CREATE A MAP
-    private Tile[][] createmap(){
-        Tile[][] battlefield = new Tile[10][10];//Tile[y][x]//
-        for(int y=0;y<10;y++){
-            for(int x=0;x<10;x++){
-                battlefield[y][x]= new Tile();
+    private Tile[][] createmap(int x,int y){
+        Tile[][] battlefield = new Tile[y][x];//Tile[y][x]//
+        for(int i=0;i<y;i++){
+            for(int j=0;j<x;j++){
+                battlefield[i][j]= new Tile();
             }
         }
-        drawmap(battlefield);
         return battlefield;
     }
     
@@ -31,7 +30,7 @@ public class Game {
         for(int i=0;i<map.length;i++){
             System.out.print(y+" ");
             for(int j=0;j<map.length;j++){
-                System.out.print(map[i][j].icon+" ");
+                map[i][j].draw(j,i);
             }
             System.out.println();
             y++;
@@ -125,57 +124,93 @@ public class Game {
                 ship.coordinates[i]=new ShipCoordinates(x+i,y);
             }
         }
-        this.drawmap(map);
         return true;
+    }
+    
+    
+    //SKINKS THE SHIP
+    private void sink(int x, int y,Tile[][] map,Tile ship){
+        if(map[y][x].coordinates[0].x==map[y][x].coordinates[1].x){
+            for(int i=-1;i<=ship.sizeofship;i++){
+                for(int j=-1;j<2;j++){
+                    map[y+i][x+j].hit(x,y);
+                }
+            }
+        }else if(map[y][x].coordinates[0].y==map[y][x].coordinates[1].y){
+            for(int i=-1;i<=ship.sizeofship;i++){
+                for(int j=-1;j<2;j++){
+                    map[y+j][x+i].hit(x,y);
+                }
+            }
+        }
     }
     
     
     //STARTS THE GAME
     public void start(){
         //MAP[y][x] AS TABLE (REVERSED COORDINATES)
-        Tile[][] map = createmap();
+        Tile[][] map = createmap(10,10);
         Scanner input = new Scanner(System.in);
         
         //SETTING UP SHIPS
-        SmallShip small=new SmallShip();
-        MediumShip medium=new MediumShip();
-        LargeShip large=new LargeShip();
-        boolean check=false;
-        while(check==false){
-            if(placeship(map,small)==true){
-                check=true;
+        Ship[] ships = new Ship[5];
+        ships[0]= new SmallShip();
+        ships[1]= new SmallShip();
+        ships[2]= new SmallShip();
+        ships[3]= new MediumShip();
+        ships[4]= new LargeShip();
+        boolean check;
+        for(int i=0;i<ships.length;i++){
+            check=false;
+            while(check==false){
+                if(placeship(map,ships[i])==true){
+                    check=true;
+                }
             }
         }
-        check=false;
-        while(check==false){
-            if(placeship(map,medium)==true){
-                check=true;
-            }
-        }
-        check=false;
-        while(check==false){
-            if(placeship(map,large)==true){
-                check=true;
-            }
-        }
+        
+
         
         //PLAYER's TURN
+        drawmap(map);
         check=false;
-        int moves = 100;
+        int amount_of_ships=ships.length;
+        int tmp=0;
+        for(int i=0;i<ships.length;i++){
+            tmp+=ships[i].sizeofship*3;
+        }
+        int moves=map.length*map[0].length-tmp;
         int[] coordinates;
+        int result;
         while(check==false){
             coordinates=input(input,map);
-            map[coordinates[1]][coordinates[0]].hit(coordinates[1],coordinates[0]);
-            drawmap(map);
-            moves--;
+            result = map[coordinates[1]][coordinates[0]].hit(coordinates[0],coordinates[1]);
+            if(result==1){
+                sink(map[coordinates[1]][coordinates[0]].coordinates[0].x,map[coordinates[1]][coordinates[0]].coordinates[0].y,map,map[coordinates[1]][coordinates[0]]);
+                amount_of_ships--;
+                drawmap(map);
+                System.out.println("The ship is sinking!");
+                if(amount_of_ships==0){
+                    drawmap(map);
+                    System.out.println("YOU WIN!");
+                    check=true;
+                }
+            }else if(result==2){
+                moves--;
+                drawmap(map);
+                System.out.println("Miss!");
+            }else if(result==-1){
+                drawmap(map);
+                System.out.println("You already hit this tile!");
+            }else{
+                drawmap(map);
+                System.out.println("Bingo!");
+            }
+            
             if(moves==0){
                 check=true;
-                System.out.println("Game Over");
+                System.out.println("Game Over!");
             }
         }
-        
-        //TO-DO
-        //-Check hits -ALMOST WORKING
-        //-All the tiles around destroyed when Ship is sinking
     }
 }
