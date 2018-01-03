@@ -2,15 +2,23 @@ package Battleships;
 
 public class Tile {
     private boolean hit = false;
-    char icon = 'O';
+    int sizeofship;
+    public ShipCoordinates[] coordinates;
     
     public int hit(int x,int y){
         if(hit==false){
-            icon='~';
             hit=true;
-            return 1;
+            return 2;
         }else{
-            return 0;
+            return -1;
+        }
+    }
+    
+    public void draw(int x,int y){
+        if(hit==false){
+            System.out.print("O ");
+        }else{
+            System.out.print("~ ");
         }
     }
     
