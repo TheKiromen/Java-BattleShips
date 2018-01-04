@@ -28,7 +28,7 @@ public abstract class Ship extends Tile{
         for(int i=0;i<sizeofship;i++){
             if(coordinates[i].x==x&&coordinates[i].y==y){
                 if(coordinates[i].hit==false){
-                    System.out.print("> ");
+                    System.out.print("O ");
                 }else if(coordinates[i].hit==true){
                     System.out.print("X ");
                 }

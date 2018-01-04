@@ -5,6 +5,9 @@ import java.util.Scanner;
 
 public class Game {
     
+    //VARIABLES
+    Random rnd = new Random();
+    
     
     //CREATE A MAP
     private Tile[][] createmap(int x,int y){
@@ -85,35 +88,32 @@ public class Game {
     //PLACES SHIP ON A MAP
     private boolean placeship(Tile[][] map, Ship ship){
         int axis = (int)Math.round(Math.random());
-        Random rnd = new Random();
         boolean stop = false;
         int x = 0,y = 0;
-        while(stop==false){
         //AXIS 1 = | //ASIX 0 = --
         //Checking if there are no other ships around
-            if(axis==1){
-                x=rnd.nextInt(map[0].length-2)+1;
-                y=rnd.nextInt(map.length-(ship.sizeofship+1))+1;
-                for(int i=-1;i<=ship.sizeofship;i++){
-                    for(int j=-1;j<2;j++){
-                        if(map[y+i][x+j] instanceof Ship){
-                            return false;
-                        }
+        if(axis==1){
+            x=rnd.nextInt(map[0].length-2)+1;
+            y=rnd.nextInt(map.length-(ship.sizeofship+1))+1;
+            for(int i=-1;i<=ship.sizeofship;i++){
+                for(int j=-1;j<2;j++){
+                    if(map[y+i][x+j] instanceof Ship){
+                        return false;
                     }
                 }
-            stop=true;
-            }else{
-                x=rnd.nextInt(map[0].length-(ship.sizeofship+1))+1;
-                y=rnd.nextInt(map.length-2)+1;
-                for(int i=-1;i<=ship.sizeofship;i++){
-                    for(int j=-1;j<2;j++){
-                        if(map[y+j][x+i] instanceof Ship){
-                            return false;
-                        }
-                    }
-                }
-            stop=true;
             }
+        stop=true;
+        }else{
+            x=rnd.nextInt(map[0].length-(ship.sizeofship+1))+1;
+            y=rnd.nextInt(map.length-2)+1;
+            for(int i=-1;i<=ship.sizeofship;i++){
+                for(int j=-1;j<2;j++){
+                    if(map[y+j][x+i] instanceof Ship){
+                        return false;
+                    }
+                }
+            }
+        stop=true;
         }
         for(int i=0;i<ship.sizeofship;i++){
             if(axis==1){
